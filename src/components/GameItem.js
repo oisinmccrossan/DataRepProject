@@ -1,19 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Card from 'react-bootstrap/Card';
 
 const GameItem = ({ game }) => {
-  useEffect(() => {
-    console.log("Game Item:", game);
-  }, [game]); // Only run this effect when the game prop changes
-
   return (
     <li>
       <Card>
-        <Card.Header>{game.Title}</Card.Header>
+        <Card.Header>{game.title}</Card.Header>
         <Card.Body>
           <blockquote className="blockquote mb-0">
-            <img src={game.Poster} alt={game.Title} style={{ width: '200px' }} />
-            <footer>{game.Year}</footer>
+            <img src={game.poster} alt={game.title} style={{ width: '200px' }} />
+            <footer>{game.year}</footer>
           </blockquote>
         </Card.Body>
       </Card>

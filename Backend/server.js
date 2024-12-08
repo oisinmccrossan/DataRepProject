@@ -1,8 +1,16 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 const app = express();
 const port = 4000;
+
+// Replace <db_password> with your actual database password
+const dbConnectionString = 'mongodb+srv://admin:admin@cluster0.fwivz.mongodb.net/';
+
+mongoose.connect(dbConnectionString, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('MongoDB connected...'))
+    .catch(err => console.log(err));
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -15,6 +23,15 @@ app.use(function(req, res, next) {
   next();
 });
 
+// Define schema and data model for games
+const gameSchema = new mongoose.Schema({
+  title: String,
+  year: String,
+  poster: String
+});
+
+const Game = mongoose.model('Game', gameSchema);
+
 app.get('/', (req, res) => {
     res.send('Hello World');
 });
@@ -24,38 +41,37 @@ app.get('/hello/:name/:surname', (req, res) => {
     res.send(`Hello ${name} ${surname}`);
 });
 
-app.get('/api/games', (req, res) => {
-    const games = [
-        {
-            "Title": "Terraria",
-            "Year": "2011",
-            "id": "terraria",
-            "Type": "game",
-            "Poster": "https://gamescenter.pe/wp-content/uploads/2019/08/Terraria-PS4-1.png"
-        },
-        {
-            "Title": "The Witcher 3: Wild Hunt",
-            "Year": "2015",
-            "id": "witcher3",
-            "Type": "game",
-            "Poster": "https://upload.wikimedia.org/wikipedia/en/0/0c/Witcher_3_cover_art.jpg"
-        },
-        {
-            "Title": "Cyberpunk 2077",
-            "Year": "2020",
-            "id": "cyberpunk2077",
-            "Type": "game",
-            "Poster": "https://upload.wikimedia.org/wikipedia/en/9/9f/Cyberpunk_2077_box_art.jpg"
-        },
-        {
-            "Title": "God of War",
-            "Year": "2018",
-            "id": "godofwar",
-            "Type": "game",
-            "Poster": "https://upload.wikimedia.org/wikipedia/en/a/a7/God_of_War_4_cover.jpg"
-        }
-    ];
-    res.status(201).json({ myGames: games });
+// Retrieve all games
+app.get('/api/games', async (req, res) => {
+    try {
+        const games = await Game.find({});
+        res.json(games);
+    } catch (error) {
+        res.status(500).send('Something went wrong');
+    }
+});
+
+// Add a new game
+app.post('/api/games', async (req, res) => {
+  const { title, year, poster } = req.body;
+
+  const newGame = new Game({ title, year, poster });
+  await newGame.save();
+
+  res.status(201).json({ message: 'Game created successfully', game: newGame });
+});
+
+// Retrieve a game by ID
+app.get('/api/games/:id', async (req, res) => {
+  try {
+    const game = await Game.findById(req.params.id);
+    if (!game) {
+      return res.status(404).send('Game not found');
+    }
+    res.send(game);
+  } catch (error) {
+    res.status(500).send('Something went wrong');
+  }
 });
 
 // Error-handling middleware

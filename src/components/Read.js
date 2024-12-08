@@ -6,10 +6,10 @@ const Read = () => {
   const [games, setGames] = useState([]);
 
   useEffect(() => {
-    axios.get('https://jsonblob.com/api/jsonblob/1315379880329928704')
+    axios.get('http://localhost:4000/api/games')
       .then((response) => {
         console.log(response.data); // Log the API response
-        setGames(response.data); // Adjust this based on your API response structure
+        setGames(response.data); // Update the state with the fetched games
       })
       .catch((error) => {
         console.log(error);
