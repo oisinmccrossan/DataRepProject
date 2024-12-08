@@ -74,6 +74,19 @@ app.get('/api/games/:id', async (req, res) => {
   }
 });
 
+// Update a game by ID
+app.put('/api/games/:id', async (req, res) => {
+  try {
+    const game = await Game.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!game) {
+      return res.status(404).send('Game not found');
+    }
+    res.send(game);
+  } catch (error) {
+    res.status(500).send('Something went wrong');
+  }
+});
+
 // Error-handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
