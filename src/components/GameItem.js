@@ -9,11 +9,11 @@ const GameItem = (props) => {
   return (
     <div>
       <Card>
-        <Card.Header>{props.game.Title}</Card.Header>
+        <Card.Header>{props.game.name}</Card.Header>
         <Card.Body>
           <blockquote className="blockquote mb-0">
-            <img src={props.game.Poster} alt={props.game.Title} style={{ width: '200px' }} />
-            <footer>{props.game.Year}</footer>
+            <img src={props.game.background_image} alt={props.game.name} style={{ width: '200px' }} />
+            <footer>{props.game.released}</footer>
           </blockquote>
         </Card.Body>
       </Card>
