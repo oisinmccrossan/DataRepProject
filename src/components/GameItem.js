@@ -28,6 +28,7 @@ const GameItem = ({ game, Reload }) => {
           <blockquote className="blockquote mb-0">
             <img src={game.poster} alt={game.title} style={{ width: '200px' }} />
             <footer>{game.year}</footer>
+            <footer>Rating: {game.rating}</footer> {/* Display the rating */}
           </blockquote>
           {/* Link to the edit page for the game */}
           <Link to={"/edit/" + game._id} className="btn btn-primary">Edit</Link>

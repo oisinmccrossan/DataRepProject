@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const app = express();
 const port = 4000;
 
-// Replace <db_password> with your actual database password
+// MongoDB connection string
 const dbConnectionString = 'mongodb+srv://admin:admin@cluster0.fwivz.mongodb.net/';
 
 // Connect to MongoDB
@@ -30,7 +30,8 @@ app.use(function(req, res, next) {
 const gameSchema = new mongoose.Schema({
   title: String,
   year: String,
-  poster: String
+  poster: String,
+  rating: String // Include the rating field in the schema
 });
 
 const Game = mongoose.model('Game', gameSchema);
@@ -58,9 +59,9 @@ app.get('/api/games', async (req, res) => {
 
 // Add a new game
 app.post('/api/games', async (req, res) => {
-  const { title, year, poster } = req.body;
+  const { title, year, poster, rating } = req.body;
 
-  const newGame = new Game({ title, year, poster });
+  const newGame = new Game({ title, year, poster, rating });
   await newGame.save();
 
   res.status(201).json({ message: 'Game created successfully', game: newGame });

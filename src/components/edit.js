@@ -12,6 +12,7 @@ export default function Edit(props) {
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
   const [poster, setPoster] = useState("");
+  const [rating, setRating] = useState(""); // New state variable for rating
   
   // Hook to navigate programmatically
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ export default function Edit(props) {
         setTitle(response.data.title);
         setYear(response.data.year);
         setPoster(response.data.poster);
+        setRating(response.data.rating); // Set the rating with the fetched game data
       })
       .catch((error) => {
         console.log(error);
@@ -35,7 +37,7 @@ export default function Edit(props) {
     event.preventDefault();
     
     // Create an updated game object with the form input values
-    const updatedGame = { id, title, year, poster };
+    const updatedGame = { id, title, year, poster, rating };
     
     // Send a PUT request to update the game
     axios.put('http://localhost:4000/api/games/' + id, updatedGame)
@@ -69,6 +71,13 @@ export default function Edit(props) {
             className="form-control" 
             value={poster} 
             onChange={(e) => setPoster(e.target.value)} />
+        </div>
+        <div className="form-group">
+          <label>Rating: </label>
+          <input type="text" 
+            className="form-control" 
+            value={rating} 
+            onChange={(e) => setRating(e.target.value)} />
         </div>
         <div className="form-group">
           <input type="submit" value="Edit Game" className="btn btn-primary" />

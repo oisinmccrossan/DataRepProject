@@ -11,7 +11,7 @@ import Edit from './components/edit'; // Import the Edit component
 // App component definition
 function App() {
   return (
-    // Router component to enable routing
+    // Router component to handle routing
     <Router>
       {/* Navigation bar component */}
       <NavigationBar />
@@ -23,7 +23,7 @@ function App() {
         <Route path="/read" element={<Read />} />
         {/* Route for the create page */}
         <Route path="/create" element={<Create />} />
-        {/* Route for the edit page */}
+        {/* Route for the edit page with a dynamic ID */}
         <Route path="/edit/:id" element={<Edit />} /> {/* Add the Edit route */}
       </Routes>
       {/* Footer component */}
@@ -33,4 +33,4 @@ function App() {
 }
 
 // Export the App component as the default export
-export default App;s
+export default App;
