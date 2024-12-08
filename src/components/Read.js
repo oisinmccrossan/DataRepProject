@@ -6,9 +6,10 @@ const Read = () => {
   const [games, setGames] = useState([]);
 
   useEffect(() => {
-    axios.get('https://api.rawg.io/api/games?key=cde9904e5242e4e351329229fd2fb256559e9637')
+    axios.get('https://jsonblob.com/api/jsonblob/1315379880329928704')
       .then((response) => {
-        setGames(response.data.results); // Adjust this based on your API response structure
+        console.log(response.data); // Log the API response
+        setGames(response.data); // Adjust this based on your API response structure
       })
       .catch((error) => {
         console.log(error);
