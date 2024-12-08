@@ -2,26 +2,30 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Games from './Games';
 
-const Read = () => {
-  const [games, setGames] = useState([]);
+function Read() {
+  const [data, setData] = useState([]);
 
-  useEffect(() => {
+  const Reload = () => {
+    console.log("Reloading game data...");
     axios.get('http://localhost:4000/api/games')
       .then((response) => {
-        console.log(response.data); // Log the API response
-        setGames(response.data); // Update the state with the fetched games
+        setData(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        console.error("Error reloading data:", error);
       });
+  };
+
+  useEffect(() => {
+    Reload();
   }, []);
 
   return (
     <div>
-      <h2>This is my Read Component.</h2>
-      <Games games={games} />
+      <h2>Game List</h2>
+      <Games games={data} ReloadData={Reload} />
     </div>
   );
-};
+}
 
 export default Read;

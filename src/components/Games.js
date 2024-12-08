@@ -1,19 +1,18 @@
 import React from 'react';
 import GameItem from './GameItem';
 
-const Games = ({ games }) => {
-  console.log(games); // Log the games data
-
+function Games(props) {
   return (
-    <div>
-      <h1>Game List</h1>
-      <ul>
-        {games.map((game) => (
-          <GameItem key={game._id} game={game} />
-        ))}
-      </ul>
-    </div>
+    <>
+      {props.games.map((game) => (
+        <GameItem
+          game={game}
+          key={game._id}
+          Reload={props.ReloadData}
+        />
+      ))}
+    </>
   );
-};
+}
 
 export default Games;

@@ -87,6 +87,20 @@ app.put('/api/games/:id', async (req, res) => {
   }
 });
 
+// Delete a game by ID
+app.delete('/api/games/:id', async (req, res) => {
+  try {
+    console.log('Deleting game with ID:', req.params.id);
+    const game = await Game.findByIdAndDelete(req.params.id);
+    if (!game) {
+      return res.status(404).send('Game not found');
+    }
+    res.status(200).send({ message: "Game deleted successfully", game });
+  } catch (error) {
+    res.status(500).send('Something went wrong');
+  }
+});
+
 // Error-handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
