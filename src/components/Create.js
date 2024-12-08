@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 function Create() {
   const [title, setTitle] = useState('');
@@ -7,9 +8,18 @@ function Create() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(`Game Title: ${title}`);
-    console.log(`Game Year: ${year}`);
-    console.log(`Game Poster URL: ${poster}`);
+    
+    console.log(`Title: ${title}, Year: ${year}, Poster: ${poster}`);
+    
+    const game = {
+      title: title,
+      year: year,
+      poster: poster
+    };
+    
+    axios.post('http://localhost:4000/api/games', game)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err.data));
   }
 
   return (
