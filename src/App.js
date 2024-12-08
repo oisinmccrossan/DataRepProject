@@ -8,19 +8,29 @@ import Read from './components/Read';
 import Create from './components/Create';
 import Edit from './components/edit'; // Import the Edit component
 
+// App component definition
 function App() {
   return (
+    // Router component to enable routing
     <Router>
+      {/* Navigation bar component */}
       <NavigationBar />
+      {/* Routes component to define the routes */}
       <Routes>
+        {/* Route for the home page */}
         <Route path="/" element={<Content />} />
+        {/* Route for the read page */}
         <Route path="/read" element={<Read />} />
+        {/* Route for the create page */}
         <Route path="/create" element={<Create />} />
+        {/* Route for the edit page */}
         <Route path="/edit/:id" element={<Edit />} /> {/* Add the Edit route */}
       </Routes>
+      {/* Footer component */}
       <Footer />
     </Router>
   );
 }
 
-export default App;
+// Export the App component as the default export
+export default App;s

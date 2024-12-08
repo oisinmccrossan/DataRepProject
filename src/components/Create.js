@@ -2,26 +2,32 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 function Create() {
+  // State variables to manage the form inputs
   const [title, setTitle] = useState('');
   const [year, setYear] = useState('');
   const [poster, setPoster] = useState('');
 
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     
+    // Log the form input values
     console.log(`Title: ${title}, Year: ${year}, Poster: ${poster}`);
     
+    // Create a game object with the form input values
     const game = {
       title: title,
       year: year,
       poster: poster
     };
     
+    // Send a POST request to add the new game
     axios.post('http://localhost:4000/api/games', game)
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err.data));
   }
 
+  // Render the create form
   return (
     <div>
       <h2>This is my Create Component.</h2>

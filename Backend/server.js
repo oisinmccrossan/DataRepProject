@@ -8,14 +8,17 @@ const port = 4000;
 // Replace <db_password> with your actual database password
 const dbConnectionString = 'mongodb+srv://admin:admin@cluster0.fwivz.mongodb.net/';
 
+// Connect to MongoDB
 mongoose.connect(dbConnectionString, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected...'))
     .catch(err => console.log(err));
 
+// Middleware setup
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// Set CORS headers
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
@@ -32,10 +35,12 @@ const gameSchema = new mongoose.Schema({
 
 const Game = mongoose.model('Game', gameSchema);
 
+// Root route
 app.get('/', (req, res) => {
     res.send('Hello World');
 });
 
+// Greeting route
 app.get('/hello/:name/:surname', (req, res) => {
     const { name, surname } = req.params;
     res.send(`Hello ${name} ${surname}`);
@@ -107,6 +112,7 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something went wrong!');
 });
 
+// Start the server
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
