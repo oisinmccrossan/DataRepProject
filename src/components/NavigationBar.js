@@ -9,7 +9,7 @@ const NavigationBar = () => {
     <Navbar bg="primary" variant="dark">
       <Container>
         {/* Brand name with a link to the home page */}
-        <Navbar.Brand href="/">Video Game Displayer</Navbar.Brand>
+        <Navbar.Brand href="/">Video Game Rater</Navbar.Brand>
         <Nav className="me-auto">
           {/* Navigation links */}
           <Nav.Link href="/">Home</Nav.Link>
